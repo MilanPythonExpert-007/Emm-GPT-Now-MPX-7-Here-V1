@@ -8,7 +8,7 @@ I wanted to create something different.
 What started as just a random idea has now turned into something real —
 Yes, I built my own AI. 🤖🔥
 
-I spent 5.5 months learning everything on my own — coding, UI, backend, fixing bugs, failing and trying again.
+I spent 5-6 months learning everything on my own — coding, UI, backend, fixing bugs, failing and trying again.
 No fancy classes. No team. Just YouTube, Google, and pure obsession.
 
 Now that AI isn’t just smart —
