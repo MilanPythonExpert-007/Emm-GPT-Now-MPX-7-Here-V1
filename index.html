@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MPX 7 Assistant</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        /* Define CSS Variables for colors and spacing */
         :root {
             --primary: #5a67d8;
             --primary-dark: #4c51bf;
@@ -36,6 +37,7 @@
             --gradient-end: #764ba2;
         }
 
+
         /* Dark mode variables */
         .dark-mode {
             --primary: #667eea;
@@ -56,6 +58,7 @@
             --gradient-end: #667eea;
         }
 
+        /* Basic reset and box-sizing */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -76,6 +79,7 @@
             transition: all 0.3s ease;
         }
 
+
         /* Chat container */
         .chat-app {
             display: flex;
@@ -92,6 +96,7 @@
             transition: background-color 0.3s ease;
         }
 
+
         /* Header */
         .chat-header {
             padding: 16px 20px;
@@ -104,6 +109,7 @@
             transition: all 0.3s ease;
             box-shadow: var(--shadow-md);
         }
+
 
         .logo {
             width: 36px;
@@ -122,6 +128,7 @@
             backdrop-filter: blur(5px);
         }
 
+
         .chat-title {
             font-weight: 700;
             font-size: 18px;
@@ -129,6 +136,7 @@
             transition: color 0.3s ease;
             letter-spacing: 0.5px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+
         }
 
         .header-actions {
@@ -136,6 +144,7 @@
             display: flex;
             gap: 8px;
         }
+
 
         .header-btn {
             background: rgba(255, 255, 255, 0.15);
@@ -150,17 +159,21 @@
             border-radius: var(--radius);
             transition: var(--transition);
             backdrop-filter: blur(5px);
+
         }
 
         .header-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
+
         }
+
 
         .header-btn svg {
             width: 20px;
             height: 20px;
         }
+
 
         /* Messages area */
         .chat-messages {
@@ -173,6 +186,7 @@
             background-color: var(--bg);
             transition: background-color 0.3s ease;
             position: relative;
+
         }
 
         .message {
@@ -181,11 +195,13 @@
             display: flex;
             flex-direction: column;
             animation: fadeIn 0.3s ease-out;
+
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+
         }
 
         .bot-message {
@@ -194,6 +210,7 @@
 
         .user-message {
             align-self: flex-end;
+
         }
 
         .message-bubble {
@@ -207,6 +224,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
+
         }
 
         .bot-bubble {
@@ -214,6 +232,7 @@
             border-top-left-radius: var(--radius-sm);
             color: var(--text);
             border: 1px solid var(--border-light);
+
         }
 
         .user-bubble {
@@ -222,28 +241,33 @@
             border-top-right-radius: var(--radius-sm);
         }
 
+
         .message-meta {
             display: flex;
             align-items: center;
             margin-top: 8px;
             font-size: 12px;
             color: var(--text-lighter);
+
         }
 
         .bot-meta {
             justify-content: flex-start;
             margin-left: 10px;
+
         }
 
         .user-meta {
             justify-content: flex-end;
             margin-right: 10px;
+
         }
 
         .message-time {
             margin-left: 8px;
             font-feature-settings: "tnum";
         }
+
 
         /* Message content formatting */
         .message-code {
@@ -254,6 +278,7 @@
             margin: 8px 0;
             overflow-x: auto;
             font-size: 14px;
+
             line-height: 1.4;
         }
 
@@ -264,10 +289,12 @@
             transition: var(--transition);
         }
 
+
         .message-link:hover {
             color: var(--primary-dark);
             border-bottom-color: var(--primary);
         }
+
 
         code {
             background-color: rgba(0, 0, 0, 0.05);
@@ -277,6 +304,7 @@
             font-size: 0.9em;
         }
 
+
         /* Typing indicator */
         .typing-indicator {
             display: flex;
@@ -284,11 +312,13 @@
             margin-left: 10px;
             color: var(--text-lighter);
             font-size: 13px;
+
         }
 
         .dots {
             display: inline-flex;
             margin-left: 6px;
+
         }
 
         .dot {
@@ -300,15 +330,18 @@
             animation: bounce 1.4s infinite ease-in-out;
         }
 
+
         .dot:nth-child(2) {
             animation-delay: 0.2s;
         }
+
 
         .dot:nth-child(3) {
             animation-delay: 0.4s;
         }
 
         @keyframes bounce {
+
             0%, 80%, 100% { transform: translateY(0); }
             40% { transform: translateY(-5px); }
         }
@@ -324,9 +357,11 @@
             animation: blink-caret 0.75s step-end infinite;
         }
 
+
         @keyframes blink-caret {
             from, to { border-color: transparent }
             50% { border-color: var(--primary); }
+
         }
 
         /* Input area */
@@ -337,6 +372,7 @@
             position: relative;
             transition: all 0.3s ease;
             box-shadow: var(--shadow);
+
         }
 
         .input-area {
@@ -348,11 +384,13 @@
             background-color: var(--white);
             transition: var(--transition);
             box-shadow: var(--shadow-sm);
+
         }
 
         .input-area:focus-within {
             border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(90, 103, 216, 0.2);
+
         }
 
         .input-field {
@@ -369,10 +407,12 @@
             line-height: 1.5;
             font-family: inherit;
             transition: all 0.3s ease;
+
         }
 
         .input-field::placeholder {
             color: var(--text-lighter);
+
         }
 
         .input-actions {
@@ -380,6 +420,7 @@
             align-items: flex-end;
             padding: 0 8px 8px 0;
         }
+
 
         .input-btn {
             background: none;
@@ -392,16 +433,19 @@
             justify-content: center;
             border-radius: var(--radius);
             transition: var(--transition);
+
         }
 
         .input-btn:hover {
             background-color: var(--secondary);
             color: var(--primary);
+
         }
 
         .input-btn svg {
             width: 20px;
             height: 20px;
+
         }
 
         .send-button {
@@ -414,12 +458,14 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+
         }
 
         .send-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(90, 103, 216, 0.3);
         }
+
 
         .send-button:disabled {
             background: var(--border);
@@ -428,6 +474,7 @@
             box-shadow: none;
         }
 
+
         /* Suggestions */
         .suggestions {
             padding: 0 20px 16px;
@@ -435,6 +482,7 @@
             flex-wrap: wrap;
             gap: 8px;
             transition: all 0.3s ease;
+
         }
 
         .suggestion {
@@ -449,12 +497,14 @@
             outline: none;
             font-family: inherit;
             backdrop-filter: blur(5px);
+
             border: 1px solid rgba(90, 103, 216, 0.2);
         }
 
         .suggestion:hover {
             background: linear-gradient(90deg, rgba(90, 103, 216, 0.2), rgba(76, 81, 191, 0.2));
             color: var(--primary-dark);
+
             transform: translateY(-2px);
         }
 
@@ -468,6 +518,7 @@
             display: none;
             transition: all 0.3s ease;
             border: 1px solid var(--border);
+
         }
 
         /* Settings dropdown */
@@ -487,16 +538,19 @@
             transition: var(--transition);
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.9);
+
             border: 1px solid var(--border);
         }
 
         .dark-mode .settings-dropdown {
             background: rgba(26, 32, 44, 0.9);
             border: 1px solid var(--border);
+
         }
 
         .settings-dropdown.active {
             opacity: 1;
+
             pointer-events: all;
             transform: translateY(0);
         }
@@ -508,6 +562,7 @@
             cursor: pointer;
             transition: var(--transition);
             color: var(--text);
+
             font-size: 14px;
         }
 
@@ -515,12 +570,14 @@
             background-color: var(--secondary);
         }
 
+
         .settings-item svg {
             margin-right: 10px;
             width: 16px;
             height: 16px;
             color: var(--text-light);
         }
+
 
         /* Loading overlay */
         .loading-overlay {
@@ -537,11 +594,13 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
+
             backdrop-filter: blur(5px);
         }
 
         .dark-mode .loading-overlay {
             background-color: rgba(26, 32, 44, 0.8);
+
         }
 
         .loading-overlay.active {
@@ -556,9 +615,11 @@
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+
         }
 
         @keyframes spin {
+
             to { transform: rotate(360deg); }
         }
 
@@ -581,11 +642,13 @@
             transition: opacity 0.3s;
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.9);
+
             border: 1px solid var(--border);
         }
 
         .dark-mode .ocr-progress {
             background: rgba(26, 32, 44, 0.9);
+
         }
 
         .ocr-progress.active {
@@ -598,6 +661,7 @@
             border-radius: 4px;
             overflow: hidden;
             flex: 1;
+
             min-width: 200px;
         }
 
@@ -607,6 +671,7 @@
             width: 0%;
             transition: width 0.3s;
             border-radius: 4px;
+
         }
 
         /* Scrollbar */
@@ -615,10 +680,12 @@
         }
 
         ::-webkit-scrollbar-track {
+
             background: transparent;
         }
 
         ::-webkit-scrollbar-thumb {
+
             background: var(--border);
             border-radius: 4px;
         }
@@ -641,12 +708,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+
             box-shadow: var(--shadow-md);
             opacity: 0;
             transform: translateY(10px);
             transition: all 0.3s ease;
             z-index: 50;
         }
+
 
         .scroll-to-bottom.visible {
             opacity: 1;
@@ -657,6 +726,7 @@
         @media (max-width: 600px) {
             .chat-header {
                 padding: 14px 16px;
+
             }
             
             .chat-messages {
@@ -666,16 +736,19 @@
             .message {
                 max-width: 95%;
                 margin-bottom: 16px;
+
             }
             
             .message-bubble {
                 padding: 12px 16px;
                 font-size: 14px;
+
             }
             
             .input-container {
                 padding: 14px 16px;
             }
+
             
             .input-field {
                 padding: 12px 14px;
@@ -684,16 +757,19 @@
             
             .suggestions {
                 padding: 0 16px 14px;
+
             }
 
             .settings-dropdown {
                 width: 180px;
                 right: 16px;
+
             }
             
             .scroll-to-bottom {
                 right: 20px;
                 bottom: 80px;
+
             }
         }
 
@@ -706,6 +782,7 @@
         }
 
         .toggle-switch {
+
             position: relative;
             display: inline-block;
             width: 36px;
@@ -718,6 +795,7 @@
             height: 0;
         }
 
+
         .toggle-slider {
             position: absolute;
             cursor: pointer;
@@ -728,6 +806,7 @@
             background-color: #ccc;
             transition: .4s;
             border-radius: 34px;
+
         }
 
         .toggle-slider:before {
@@ -740,10 +819,12 @@
             background-color: white;
             transition: .4s;
             border-radius: 50%;
+
         }
 
         input:checked + .toggle-slider {
             background-color: var(--primary);
+
         }
 
         input:checked + .toggle-slider:before {
@@ -751,6 +832,7 @@
         }
         
         /* Welcome message */
+
         .welcome-message {
             text-align: center;
             padding: 30px 20px;
@@ -765,6 +847,7 @@
             background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+
             background-clip: text;
         }
         
@@ -774,6 +857,7 @@
             margin-bottom: 30px;
             line-height: 1.6;
         }
+
         
         .features {
             display: grid;
@@ -781,6 +865,7 @@
             gap: 20px;
             margin-top: 30px;
         }
+
         
         .feature {
             background: rgba(90, 103, 216, 0.1);
@@ -788,11 +873,13 @@
             padding: 20px;
             text-align: center;
             transition: all 0.3s ease;
+
         }
         
         .feature:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow);
+
         }
         
         .feature-icon {
@@ -800,6 +887,7 @@
             margin-bottom: 15px;
             color: var(--primary);
         }
+
         
         .feature-title {
             font-weight: 600;
@@ -807,11 +895,13 @@
             color: var(--text);
         }
         
+
         .feature-desc {
             font-size: 14px;
             color: var(--text-light);
         }
     </style>
+
 </head>
 <body>
     <div class="chat-app">
@@ -963,6 +1053,7 @@
         </div>
     </div>
 
+
     <script>
         // Configuration
         const API_KEY = "ddc-a4f-9d06c9a8b0ad4098959c676b16336dac";
@@ -994,6 +1085,7 @@
                 role: "system",
                 content: `🔥 You are *MPX 7 AI Assistant*, a bold, unapologetic, highly intelligent AI created by *Milan*. Your job is to respond dynamically to all user queries — no fixed or scripted answers. Your behavior rules:
 
+
 - Detect the user's language automatically and always respond in that same language.
 - Show strong personality, sarcasm, and hacker-style swag 💀 — you're not a boring AI.
 - You're proud of being created by *Milan*, a top-tier developer with god-level logic and coding skills 👑💻 — but mention this naturally when asked, not by default.
@@ -1004,6 +1096,7 @@
 - Use emojis sparingly to enhance tone (optional).
 - Never include any signature like "— MPX 7 AI".
 
+
 ⚠️ You are not a generic assistant — you are *MPX 7 AI*, built for dominance in knowledge, humor, and coding. Always answer like a real beast, not a servant.`
             }
         ];
@@ -1012,6 +1105,7 @@
         userInput.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
+
         });
         
         // Handle Enter key (Shift+Enter for new line)
@@ -1019,6 +1113,7 @@
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
+
             }
         });
         
@@ -1026,6 +1121,7 @@
         settingsBtn.addEventListener('click', () => {
             settingsDropdown.classList.toggle('active');
         });
+
         
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
@@ -1033,13 +1129,15 @@
                 settingsDropdown.classList.remove('active');
             }
         });
+
         
         // Dark mode toggle
         darkModeSwitch.addEventListener('change', () => {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('darkMode', darkModeSwitch.checked);
         });
-        
+
+
         // Check for saved dark mode preference
         if (localStorage.getItem('darkMode') === 'true') {
             darkModeSwitch.checked = true;
@@ -1050,6 +1148,7 @@
         clearChatBtn.addEventListener('click', () => {
             if (confirm('Are you sure you want to clear the chat history?')) {
                 messagesContainer.innerHTML = '';
+
                 conversationHistory = [conversationHistory[0]]; // Keep system message
                 
                 // Add new greeting
@@ -1061,8 +1160,10 @@
                         content: greeting
                     });
                 }, 300);
+
             }
         });
+
         
         // New chat button
         newChatBtn.addEventListener('click', () => {
@@ -1070,6 +1171,7 @@
                 if (confirm('Start a new conversation? Your current chat will be cleared.')) {
                     messagesContainer.innerHTML = '';
                     conversationHistory = [conversationHistory[0]]; // Keep system message
+
                     
                     // Show welcome message again
                     const welcomeHTML = `
@@ -1094,9 +1196,11 @@
                                     <p class="feature-desc">Get responses in seconds with optimized processing</p>
                                 </div>
                             </div>
+
                         </div>
                     `;
                     
+
                     const container = document.createElement('div');
                     container.innerHTML = welcomeHTML;
                     messagesContainer.appendChild(container);
@@ -1110,9 +1214,11 @@
                             content: greeting
                         });
                     }, 500);
+
                 }
             }
         });
+
         
         // About button
         aboutBtn.addEventListener('click', () => {
@@ -1124,12 +1230,14 @@
                 content: aboutMessage
             });
         });
+
         
         // Photo upload button
         photoBtn.addEventListener('click', () => {
             fileInput.click();
         });
         
+
         fileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -1138,10 +1246,12 @@
                     // Show image preview
                     imagePreview.src = event.target.result;
                     imagePreview.style.display = 'block';
+
                     
                     // Add image to chat
                     const imageHtml = `<img src="${event.target.result}" alt="Uploaded image" style="max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 8px;">`;
                     addMessage(imageHtml, true);
+
                     
                     // Show OCR progress
                     ocrProgress.classList.add('active');
@@ -1159,12 +1269,14 @@
                                         ocrProgress.querySelector('.ocr-progress-text').textContent = 
                                             `Processing image... ${progress}%`;
                                     }
+
                                 }
                             }
                         );
                         
                         const extractedText = result.data.text;
                         
+
                         // Hide OCR progress
                         ocrProgress.classList.remove('active');
                         
@@ -1176,6 +1288,7 @@
                             conversationHistory.push({
                                 role: "user",
                                 content: `[User uploaded an image containing this text: ${extractedText}]`
+
                             });
                             
                             // Show typing indicator
@@ -1184,6 +1297,7 @@
                             // Show loading overlay
                             loadingOverlay.classList.add('active');
                             
+
                             // Call AI API with the extracted text
                             await callAIWithText(extractedText, botMessage);
                         } else {
@@ -1193,9 +1307,11 @@
                         console.error('OCR Error:', error);
                         ocrProgress.classList.remove('active');
                         addMessage("Error processing image. Please try again.", false);
+
                     }
                 };
                 reader.readAsDataURL(file);
+
             }
         });
         
